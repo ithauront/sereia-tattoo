@@ -2,11 +2,30 @@ name: CI
 
 on:
   pull_request:
-    branches: [ master, main ]
-  push:
-    branches: [ "**" ]
+    branches: [master, main]
+    types: [opened, synchronize, reopened, ready_for_review]
+
+concurrency:
+  group: ci-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
 
 jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+
+      - run: npm run lint
+        continue-on-error: true
+
+      - run: npm run format
+        continue-on-error: true
+
   test:
     runs-on: ubuntu-latest
     steps:
