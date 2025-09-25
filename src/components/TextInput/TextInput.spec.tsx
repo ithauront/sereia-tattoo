@@ -6,9 +6,8 @@ import { describe, expect, it, vi } from 'vitest'
 
 import TextInput from './TextInput'
 
-function typeIn(el: HTMLElement, value: string) {
-  // Simple helper to change input value
-  fireEvent.change(el, {
+function typeIn(inputElement: HTMLElement, value: string) {
+  fireEvent.change(inputElement, {
     target: {
       value,
     },
@@ -24,12 +23,12 @@ describe('TextInput', () => {
 
   it('controlled mode: value and onChange', () => {
     const Wrapper = () => {
-      const [val, setVal] = useState('hi')
+      const [inputValue, setinputValue] = useState('hi')
       return (
         <TextInput
           label="Name"
-          value={val}
-          onChange={(evento) => setVal(evento.currentTarget.value)}
+          value={inputValue}
+          onChange={(evento) => setinputValue(evento.currentTarget.value)}
         />
       )
     }
@@ -59,8 +58,8 @@ describe('TextInput', () => {
     const input = screen.getByLabelText('Login')
     const desc = input.getAttribute('aria-describedby')
     expect(desc).toBeTruthy()
-    const errEl = screen.getByText('Oops')
-    expect(errEl.id).toBe(desc)
+    const errElement = screen.getByText('Oops')
+    expect(errElement.id).toBe(desc)
   })
 
   it('password toggle switches type and aria-pressed', () => {

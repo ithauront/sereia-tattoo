@@ -167,7 +167,7 @@ export const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(func
         {isPassword && (
           <button
             type="button"
-            onClick={() => setShowPassword((v) => !v)}
+            onClick={() => setShowPassword((wasVisible) => !wasVisible)}
             aria-label={toggleLabel}
             aria-pressed={showPassword}
             className={cn(
