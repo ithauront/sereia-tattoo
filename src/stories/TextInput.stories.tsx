@@ -6,17 +6,7 @@ import TextInput, { type TextInputProps } from '../components/TextInput/TextInpu
 const meta: Meta<TextInputProps> = {
   title: 'Form/TextInput',
   component: TextInput,
-  args: {
-    label: 'Label',
-    placeholder: 'Type here...',
-    isPassword: false,
-    isRequired: false,
-    isDisabled: false,
-    isReadOnly: false,
-    error: undefined,
-    fullWidth: true,
-    size: 'md',
-  },
+  tags: ['autodocs'],
   parameters: {
     docs: {
       description: {
@@ -29,14 +19,108 @@ const meta: Meta<TextInputProps> = {
       },
     },
   },
+
+  argTypes: {
+    label: {
+      control: 'text',
+      description: 'Rótulo do campo.',
+    },
+    placeholder: {
+      control: 'text',
+      description: 'Placeholder do input.',
+    },
+    ariaLabel: {
+      control: 'text',
+      description: 'Label acessível quando não há `label` visual.',
+    },
+    isPassword: {
+      control: 'boolean',
+      description: 'Ativa modo senha com show/hide.',
+    },
+    isRequired: {
+      control: 'boolean',
+      description: 'Exibe * e `aria-required`.',
+    },
+    isDisabled: {
+      control: 'boolean',
+      description: 'Estado desabilitado.',
+    },
+    isReadOnly: {
+      control: 'boolean',
+      description: 'Estado somente leitura.',
+    },
+    error: {
+      control: 'text',
+      description: 'Mensagem de erro + `aria-invalid`.',
+    },
+
+    size: {
+      options: ['sm', 'md', 'lg'],
+      control: {
+        type: 'inline-radio',
+      },
+      description: 'Tamanho do input.',
+    },
+    fullWidth: {
+      control: 'boolean',
+      description: 'Ocupar 100% da largura.',
+    },
+    className: {
+      control: 'text',
+      description: 'Classes extras.',
+    },
+
+    maxLength: {
+      control: 'number',
+      description: 'Máximo de caracteres.',
+    },
+    minLength: {
+      control: 'number',
+      description: 'Mínimo de caracteres.',
+    },
+    autoComplete: {
+      control: 'text',
+      description: 'Sugestão do navegador.',
+    },
+
+    onChange: {
+      action: 'changed',
+      description: 'Dispara no change.',
+    },
+    onBlur: {
+      action: 'blurred',
+      description: 'Dispara no blur.',
+    },
+
+    id: {
+      control: false,
+    },
+    type: {
+      control: false,
+    },
+  },
+
+  args: {
+    label: 'Label',
+    placeholder: 'Type here...',
+    isPassword: false,
+    isRequired: false,
+    isDisabled: false,
+    isReadOnly: false,
+    error: undefined,
+    fullWidth: true,
+    size: 'md',
+  },
 }
 export default meta
 
-export const Default: StoryObj<TextInputProps> = {
+export type Story = StoryObj<TextInputProps>
+
+export const Default: Story = {
   render: (args) => <TextInput {...args} />,
 }
 
-export const Password: StoryObj<TextInputProps> = {
+export const Password: Story = {
   args: {
     label: 'Password',
     isPassword: true,
@@ -44,34 +128,34 @@ export const Password: StoryObj<TextInputProps> = {
   },
 }
 
-export const ErrorState: StoryObj<TextInputProps> = {
+export const ErrorState: Story = {
   args: {
     error: 'This field is required',
     isRequired: true,
   },
 }
 
-export const Disabled: StoryObj<TextInputProps> = {
+export const Disabled: Story = {
   args: {
     isDisabled: true,
     placeholder: 'Disabled...',
   },
 }
 
-export const ReadOnly: StoryObj<TextInputProps> = {
+export const ReadOnly: Story = {
   args: {
     isReadOnly: true,
     value: 'Read-only value',
   },
 }
 
-export const Required: StoryObj<TextInputProps> = {
+export const Required: Story = {
   args: {
     isRequired: true,
   },
 }
 
-export const Sizes: StoryObj<TextInputProps> = {
+export const Sizes: Story = {
   render: () => (
     <div className="flex flex-col gap-4 w-full max-w-md">
       <TextInput label="Small" size="sm" placeholder="Small" />
@@ -81,7 +165,7 @@ export const Sizes: StoryObj<TextInputProps> = {
   ),
 }
 
-export const FixedWidth: StoryObj<TextInputProps> = {
+export const FixedWidth: Story = {
   args: {
     fullWidth: false,
   },
@@ -92,7 +176,7 @@ export const FixedWidth: StoryObj<TextInputProps> = {
   ),
 }
 
-export const WithReactHookForm: StoryObj<TextInputProps> = {
+export const WithReactHookForm: Story = {
   render: () => {
     type Form = { email: string; password: string }
     const { register, handleSubmit } = useForm<Form>({

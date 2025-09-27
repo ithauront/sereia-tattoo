@@ -1,6 +1,7 @@
-import * as React from 'react'
+import React from 'react'
 
-// Simple className merger (no external deps)
+import { EyeIcon, EyeSlashIcon } from '@phosphor-icons/react'
+
 function cn(...classes: Array<string | undefined | false | null>) {
   return classes.filter(Boolean).join(' ')
 }
@@ -8,74 +9,34 @@ function cn(...classes: Array<string | undefined | false | null>) {
 export type TextInputSize = 'sm' | 'md' | 'lg'
 
 export type TextInputProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size' | 'id'> & {
-  /** Input ID. If not provided, a stable id is generated. */
   id?: string
-  /** Input label. Renders <label htmlFor={id}> when provided. */
+
   label?: string
-  /** Placeholder text. */
+
   placeholder?: string
-  /** Enables password mode with show/hide button. */
+
   isPassword?: boolean
-  /** Shows required indicator (*) and sets aria-required. */
+
   isRequired?: boolean
-  /** Disabled state. */
+
   isDisabled?: boolean
-  /** Read-only state. */
+
   isReadOnly?: boolean
-  /** Error message. Applies error styles and aria-invalid. */
+
   error?: string
-  /** Maximum characters allowed. */
+
   maxLength?: number
-  /** Minimum characters required. */
+
   minLength?: number
-  /** Extra classes merged into base styles. */
+
   className?: string
-  /** Expands to 100% of container width. */
+
   fullWidth?: boolean
-  /** Accessibility label when no label is provided. */
+
   ariaLabel?: string
-  /** Input size, mapped to Tailwind classes. */
+
   size?: TextInputSize
-  // helpText (placeholder for future prop) – string – default: null or undefined
-  // Help text. Renders an icon that opens a tooltip with the content.
-  // IMPORTANT: leave this prop as a comment for now. After we create the tooltip component we will come back and upgrade this.
 }
-
-/** Inline Eye icons (no external icon deps) */
-const EyeIcon: React.FC<{ className?: string; title?: string }> = ({ className, title }) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    aria-hidden={title ? undefined : true}
-    className={className}
-  >
-    {title ? <title>{title}</title> : null}
-    <path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7Z" />
-    <circle cx="12" cy="12" r="3" />
-  </svg>
-)
-
-const EyeOffIcon: React.FC<{ className?: string; title?: string }> = ({ className, title }) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    aria-hidden={title ? undefined : true}
-    className={className}
-  >
-    {title ? <title>{title}</title> : null}
-    <path d="M17.94 17.94A10.94 10.94 0 0 1 12 20C6 20 2 12 2 12a20.8 20.8 0 0 1 5.06-6.94M9.9 4.24A10.94 10.94 0 0 1 12 4c6 0 10 8 10 8a20.79 20.79 0 0 1-3.22 4.62M1 1l22 22" />
-  </svg>
-)
 
 export const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(function TextInput(
   {
@@ -93,7 +54,6 @@ export const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(func
     fullWidth = true,
     ariaLabel,
     size = 'md',
-    // spread the rest for RHF/native events
     ...rest
   },
   ref,
@@ -105,7 +65,6 @@ export const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(func
   const [showPassword, setShowPassword] = React.useState(false)
   const inputType = isPassword ? (showPassword ? 'text' : 'password') : (rest.type ?? 'text')
 
-  // Accessibility: describedby ties error (and later help) to input
   const errorId = `${inputId}-error`
   const describedBy = [error ? errorId : null].filter(Boolean).join(' ') || undefined
 
@@ -124,7 +83,6 @@ export const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(func
     error ? 'border-red-500 focus:ring-red-300' : 'border-gray-300',
     fullWidth ? 'w-full' : undefined,
     sizeClasses[size],
-    // when password toggle is present, add right padding to avoid overlap
     isPassword ? 'pr-10' : undefined,
     className,
   )
@@ -141,6 +99,7 @@ export const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(func
   ) : null
 
   const toggleLabel = showPassword ? 'Hide password' : 'Show password'
+  const handlePasswordToggle = () => setShowPassword((previous) => !previous)
 
   return (
     <div className={cn(fullWidth ? 'w-full' : 'w-auto')}>
@@ -167,7 +126,7 @@ export const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(func
         {isPassword && (
           <button
             type="button"
-            onClick={() => setShowPassword((wasVisible) => !wasVisible)}
+            onClick={handlePasswordToggle}
             aria-label={toggleLabel}
             aria-pressed={showPassword}
             className={cn(
@@ -179,9 +138,9 @@ export const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(func
             disabled={isDisabled}
           >
             {showPassword ? (
-              <EyeOffIcon className="h-5 w-5" title={toggleLabel} />
+              <EyeIcon size={20} aria-hidden className="inline-block" />
             ) : (
-              <EyeIcon className="h-5 w-5" title={toggleLabel} />
+              <EyeSlashIcon size={20} aria-hidden className="inline-block" />
             )}
           </button>
         )}
