@@ -1,6 +1,6 @@
 import { forwardRef, useId, useMemo, useState } from 'react'
 
-import { EyeIcon, EyeSlashIcon } from '@phosphor-icons/react'
+import { Eye, EyeSlash } from 'phosphor-react'
 
 function cn(...classes: Array<string | undefined | false | null>) {
   return classes.filter(Boolean).join(' ')
@@ -138,9 +138,9 @@ export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(function T
             disabled={isDisabled}
           >
             {showPassword ? (
-              <EyeIcon size={20} aria-hidden className="inline-block" />
+              <Eye size={20} aria-hidden className="inline-block" />
             ) : (
-              <EyeSlashIcon size={20} aria-hidden className="inline-block" />
+              <EyeSlash size={20} aria-hidden className="inline-block" />
             )}
           </button>
         )}
