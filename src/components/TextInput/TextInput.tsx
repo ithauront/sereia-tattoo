@@ -1,4 +1,4 @@
-import React from 'react'
+import { forwardRef, useId, useMemo, useState } from 'react'
 
 import { EyeIcon, EyeSlashIcon } from '@phosphor-icons/react'
 
@@ -38,7 +38,7 @@ export type TextInputProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, '
   size?: TextInputSize
 }
 
-export const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(function TextInput(
+export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(function TextInput(
   {
     id,
     label,
@@ -58,11 +58,11 @@ export const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(func
   },
   ref,
 ) {
-  const reactId = React.useId()
-  const generatedId = React.useMemo(() => `ti-${reactId.replace(/:/g, '')}`, [reactId])
+  const reactId = useId()
+  const generatedId = useMemo(() => `ti-${reactId.replace(/:/g, '')}`, [reactId])
   const inputId = id ?? generatedId
 
-  const [showPassword, setShowPassword] = React.useState(false)
+  const [showPassword, setShowPassword] = useState(false)
   const inputType = isPassword ? (showPassword ? 'text' : 'password') : (rest.type ?? 'text')
 
   const errorId = `${inputId}-error`
