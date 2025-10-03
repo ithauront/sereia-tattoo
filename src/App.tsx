@@ -1,5 +1,6 @@
 import { Button } from './components/Button/Button'
 import { Heading } from './components/Heading/Heading'
+import { Tooltip } from './components/Tooltip/Tooltip'
 
 export function App() {
   function handleOnCLick() {
@@ -20,10 +21,11 @@ export function App() {
       </Heading>
 
       {/* Exemplo de truncamento em 2 linhas (repare no max-w para forçar quebra) */}
-      <Heading as="h3" num_of_lines={2} className="max-w-md">
-        {textoLongo}
-      </Heading>
-
+      <Tooltip content="tooltip for headinng">
+        <Heading as="h3" num_of_lines={2} className="max-w-md">
+          {textoLongo}
+        </Heading>
+      </Tooltip>
       <Button size="lg" variant="primary" onClick={handleOnCLick}>
         Button para teste
       </Button>
