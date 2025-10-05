@@ -15,7 +15,7 @@ const meta: Meta<TextInputProps> = {
           '**Accessibility**: associates <label> via htmlFor, sets `aria-invalid` on error, `aria-required` when required, and links error via `aria-describedby`. Password toggle is keyboard-accessible with correct ARIA labels.\n\n' +
           '**Password mode**: toggle button shows/hides the value and updates `aria-pressed`.\n\n' +
           '**RHF**: forwardRef + native props allow use with `register` or `Controller`.\n\n' +
-          '**Help text**: (coming soon) will use the project Tooltip component and attach to `aria-describedby`.\n',
+          '**Tooltip integration**: pass `helpText` to render a help icon. If the input has a label, the icon appears next to it; otherwise, the icon is placed inside the input (right side). Tooltip opens after a delay and closes immediately on blur/hover-out.\n',
       },
     },
   },
@@ -83,6 +83,12 @@ const meta: Meta<TextInputProps> = {
       description: 'Sugestão do navegador.',
     },
 
+    helpText: {
+      control: 'text',
+      description:
+        'Conteúdo do tooltip. Quando presente, ativa o ícone de ajuda (ao lado do label ou dentro do input, se não houver label).',
+    },
+
     onChange: {
       action: 'changed',
       description: 'Dispara no change.',
@@ -110,6 +116,7 @@ const meta: Meta<TextInputProps> = {
     error: undefined,
     fullWidth: true,
     size: 'md',
+    helpText: undefined,
   },
 }
 export default meta
@@ -210,5 +217,29 @@ export const WithReactHookForm: Story = {
         </button>
       </form>
     )
+  },
+}
+
+export const WithHelpTextLabel: Story = {
+  args: {
+    label: 'Username',
+    placeholder: 'Nickname',
+    helpText: 'Seu identificador público. Min 3 caracteres.',
+  },
+}
+
+export const WithHelpTextNoLabel: Story = {
+  args: {
+    label: undefined,
+    placeholder: 'Nickname (sem label)',
+    helpText: 'Mostrado no seu perfil.',
+  },
+}
+
+export const PasswordWithHelpTextAndWithoutLabel: Story = {
+  args: {
+    label: undefined,
+    isPassword: true,
+    helpText: 'Use pelo menos 8 caracteres.',
   },
 }

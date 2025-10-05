@@ -5,7 +5,6 @@ import { useForm } from 'react-hook-form'
 import { describe, expect, it, vi } from 'vitest'
 
 import TextInput from './TextInput'
-
 function typeIn(inputElement: HTMLElement, value: string) {
   fireEvent.change(inputElement, {
     target: {
@@ -106,5 +105,27 @@ describe('TextInput', () => {
     expect(args).toEqual({
       email: 'user@test.com',
     })
+  })
+
+  it('does not render tooltip trigger when helpText is not provided', () => {
+    render(<TextInput label="Field" />)
+    expect(screen.queryByLabelText(/help/i)).not.toBeInTheDocument()
+  })
+
+  it('renders tooltip trigger next to label when helpText is provided (label case)', async () => {
+    render(<TextInput label="Username" helpText="Seu identificador público" />)
+    const helpBtn = screen.getByLabelText(/help/i)
+    expect(helpBtn).toBeInTheDocument()
+
+    fireEvent.mouseEnter(helpBtn)
+    expect(await screen.findByRole('tooltip')).toBeInTheDocument()
+  })
+
+  it('renders tooltip trigger inside input when no label and helpText is provided', async () => {
+    render(<TextInput placeholder="Nickname" helpText="Mostrado no seu perfil" />)
+    const helpBtn = screen.getByLabelText(/help/i)
+    expect(helpBtn).toBeInTheDocument()
+    fireEvent.mouseEnter(helpBtn)
+    expect(await screen.findByRole('tooltip')).toBeInTheDocument()
   })
 })
