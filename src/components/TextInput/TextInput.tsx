@@ -1,6 +1,8 @@
-import { forwardRef, useId, useMemo, useState } from 'react'
+import { forwardRef, useId, useMemo, useState, type ReactNode } from 'react'
 
-import { Eye, EyeSlash } from 'phosphor-react'
+import { Eye, EyeSlash, Question } from 'phosphor-react'
+
+import { Tooltip } from '../Tooltip/Tooltip'
 
 function cn(...classes: Array<string | undefined | false | null>) {
   return classes.filter(Boolean).join(' ')
@@ -36,6 +38,8 @@ export type TextInputProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, '
   ariaLabel?: string
 
   size?: TextInputSize
+
+  helpText?: ReactNode
 }
 
 export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(function TextInput(
@@ -54,6 +58,7 @@ export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(function T
     fullWidth = true,
     ariaLabel,
     size = 'md',
+    helpText,
     ...rest
   },
   ref,
@@ -74,6 +79,17 @@ export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(function T
     lg: 'text-lg h-12 px-3.5',
   }
 
+  const hasInlineHelpIcon = !label && !!helpText
+  const needsPasswordSpace = isPassword
+  const needsHelpSpace = hasInlineHelpIcon
+
+  const rightPaddingClass =
+    needsPasswordSpace && needsHelpSpace
+      ? 'pr-16'
+      : needsPasswordSpace || needsHelpSpace
+        ? 'pr-10'
+        : undefined
+
   const baseInput = cn(
     'block rounded-md border outline-none placeholder-gray-400',
     'bg-white text-gray-900',
@@ -84,22 +100,41 @@ export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(function T
     fullWidth ? 'w-full' : undefined,
     sizeClasses[size],
     isPassword ? 'pr-10' : undefined,
+    rightPaddingClass,
     className,
   )
 
-  const labelMarkup = label ? (
-    <label htmlFor={inputId} className={cn('mb-1 block text-sm font-medium text-gray-700')}>
-      {label}
-      {isRequired && (
-        <span aria-hidden="true" className="text-red-600">
-          &nbsp;*
-        </span>
-      )}
-    </label>
-  ) : null
-
   const toggleLabel = showPassword ? 'Hide password' : 'Show password'
   const handlePasswordToggle = () => setShowPassword((previous) => !previous)
+
+  const labelMarkup = label ? (
+    <label htmlFor={inputId} className={cn('mb-1 block text-sm font-medium text-gray-700')}>
+      <span className="inline-flex items-center gap-1.5">
+        {label}
+        {isRequired && (
+          <span aria-hidden="true" className="text-red-600">
+            &nbsp;*
+          </span>
+        )}
+        {helpText && (
+          <Tooltip content={helpText} placement="right">
+            <button
+              type="button"
+              aria-label="Help"
+              className={cn(
+                'inline-flex items-center rounded-md text-gray-500',
+                'hover:text-gray-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500',
+              )}
+              tabIndex={isDisabled ? -1 : 0}
+              disabled={isDisabled}
+            >
+              <Question size={14} aria-hidden className="inline-block" />
+            </button>
+          </Tooltip>
+        )}
+      </span>
+    </label>
+  ) : null
 
   return (
     <div className={cn(fullWidth ? 'w-full' : 'w-auto')}>
@@ -122,6 +157,25 @@ export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(function T
           className={baseInput}
           {...rest}
         />
+
+        {hasInlineHelpIcon && (
+          <Tooltip content={helpText} placement="right">
+            <button
+              type="button"
+              aria-label="Help"
+              className={cn(
+                'absolute inset-y-0 flex items-center',
+                isPassword ? 'right-8 pr-1.5' : 'right-0 pr-3',
+                'text-gray-500 hover:text-gray-700 rounded-md',
+                'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500',
+              )}
+              tabIndex={isDisabled ? -1 : 0}
+              disabled={isDisabled}
+            >
+              <Question size={18} aria-hidden className="inline-block" />
+            </button>
+          </Tooltip>
+        )}
 
         {isPassword && (
           <button
