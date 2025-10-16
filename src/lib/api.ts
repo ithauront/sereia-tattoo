@@ -1,7 +1,8 @@
-// src/lib/api.ts
 import { clearTokens, getAuthHeader, getRefreshToken, setTokens, type TokenPair } from './auth'
 
-const API_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:8000'
+const API_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:8000/api'
+
+const unauthorized = 401
 
 async function refreshTokens(): Promise<void> {
   const refresh = getRefreshToken()
@@ -21,7 +22,6 @@ async function refreshTokens(): Promise<void> {
   setTokens(data)
 }
 
-/** fetch com Authorization + tentativa única de refresh em 401 */
 export async function fetchWithAuth(
   input: string,
   init: RequestInit = {},
@@ -37,7 +37,7 @@ export async function fetchWithAuth(
     ...init,
     headers,
   })
-  if (res.status === 401 && retryOn401) {
+  if (res.status === unauthorized && retryOn401) {
     try {
       await refreshTokens()
       const retryHeaders = {

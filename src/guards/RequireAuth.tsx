@@ -1,4 +1,3 @@
-// src/guards/RequireAuth.tsx
 import { useEffect, useState } from 'react'
 
 import { Navigate, Outlet, useLocation } from 'react-router-dom'
@@ -38,7 +37,7 @@ export default function RequireAuth({ redirectTo = '/login' }: RequireAuthProps)
     }
   }, [])
 
-  if (status === 'checking') return null // opcional: spinner
+  if (status === 'checking') return null
   if (status === 'denied')
     return (
       <Navigate

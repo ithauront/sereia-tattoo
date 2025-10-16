@@ -1,4 +1,3 @@
-// src/guards/RedirectIfAuthenticated.tsx
 import { useEffect, useState } from 'react'
 
 import { Navigate, Outlet } from 'react-router-dom'
@@ -8,7 +7,7 @@ import { getRefreshToken, hasValidAccessToken } from '../lib/auth'
 
 type Props = { to?: string }
 
-export default function RedirectIfAuthenticated({ to = '/admins' }: Props) {
+export default function RedirectIfAuthenticated({ to = '/admin' }: Props) {
   const [authed, setAuthed] = useState<boolean | 'checking'>('checking')
 
   useEffect(() => {

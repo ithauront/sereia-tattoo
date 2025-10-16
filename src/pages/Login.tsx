@@ -1,4 +1,3 @@
-// src/pages/Auth/LoginPage.tsx
 import { useState } from 'react'
 
 import { useLocation, useNavigate } from 'react-router-dom'

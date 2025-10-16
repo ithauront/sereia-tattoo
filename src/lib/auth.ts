@@ -6,6 +6,8 @@ const REFRESH_TOKEN_KEY = 'refresh_token'
 const hasWindow = typeof window !== 'undefined'
 const storage = hasWindow ? window.localStorage : null
 
+const oneSec = 1000
+
 export function getAccessToken(): string | null {
   try {
     return storage?.getItem(ACCESS_TOKEN_KEY) ?? null
@@ -37,7 +39,7 @@ export function clearTokens(): void {
   }
 }
 
-export function parseJwt(token: string): Record<string, any> | null {
+export function parseJwt(token: string): Record<string, unknown> | null {
   try {
     const [, payload] = token.split('.')
     const base64 = payload.replace(/-/g, '+').replace(/_/g, '/')
@@ -49,17 +51,17 @@ export function parseJwt(token: string): Record<string, any> | null {
 export function isTokenExpired(token: string): boolean {
   const payload = parseJwt(token)
   if (!payload || typeof payload.exp !== 'number') return true
-  return payload.exp <= Math.floor(Date.now() / 1000)
+  return payload.exp <= Math.floor(Date.now() / oneSec)
 }
 export function hasValidAccessToken(): boolean {
-  const t = getAccessToken()
-  return !!t && !isTokenExpired(t)
+  const tokenRecived = getAccessToken()
+  return !!tokenRecived && !isTokenExpired(tokenRecived)
 }
 export function getAuthHeader(): Record<string, string> {
-  const t = getAccessToken()
-  return t
+  const tokenRecived = getAccessToken()
+  return tokenRecived
     ? {
-        Authorization: `Bearer ${t}`,
+        Authorization: `Bearer ${tokenRecived}`,
       }
     : {}
 }
