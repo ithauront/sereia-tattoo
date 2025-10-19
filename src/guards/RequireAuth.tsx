@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 
 import { Navigate, Outlet, useLocation } from 'react-router-dom'
 
+import { Loading } from '../components/Loading/Loading'
 import { fetchWithAuth } from '../lib/api'
 import { clearTokens, getRefreshToken, hasValidAccessToken } from '../lib/auth'
 
@@ -37,7 +38,7 @@ export default function RequireAuth({ redirectTo = '/login' }: RequireAuthProps)
     }
   }, [])
 
-  if (status === 'checking') return null
+  if (status === 'checking') return <Loading />
   if (status === 'denied')
     return (
       <Navigate
