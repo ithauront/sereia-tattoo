@@ -2,10 +2,12 @@ import { useState } from 'react'
 
 import { useLocation, useNavigate } from 'react-router-dom'
 
-import logo from '../../public/Logo_Sereia.png'
 import { Button } from '../components/Button/Button'
 import TextInput from '../components/TextInput/TextInput'
 import { login } from '../lib/api'
+import logo from '/Logo_Sereia.png'
+import sereia from '/Sereia.svg'
+import sereiaMirror from '/SereiaMirror.svg'
 
 type AuthRedirectState = {
   from?: { pathname: string }
@@ -41,61 +43,71 @@ export function LoginPage() {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center ">
-      <div className=" flex items-center justify-center">
-        <div className="w-22 h-auto pl-4 pt-2 ">
-          <img
-            src={logo}
-            alt="Logotipo Sereia Tattoo"
-            role="button"
-            tabIndex={0}
-            aria-label="Voltar para a página inicial"
-          />
+    <div className="flex gap-30 items-center justify-center pt-16 ">
+      <div className="w-82 ">
+        <img src={sereia} alt="Imagem Sereia Tattoo" />
+      </div>
+      <div className="flex flex-col">
+        <div className=" flex items-center justify-center">
+          <div className="w-32 h-auto pl-4 pt-8 ">
+            <img src={logo} alt="Logotipo Sereia Tattoo" />
+          </div>
+        </div>
+        <div className=" flex items-center justify-center pt-8 w-90 h-70">
+          <form
+            className="flex flex-col gap-4"
+            onSubmit={handleSubmit}
+            aria-label="Formulário de login"
+          >
+            <div className="input-group">
+              <TextInput
+                value={username}
+                onChange={(element) => setUsername(element.target.value)}
+                label="Nome"
+                required
+              />
+            </div>
+            <div>
+              <TextInput
+                label="Senha"
+                isPassword
+                value={password}
+                onChange={(element) => setPassword(element.target.value)}
+                required
+              />
+            </div>
+            <div className="w-full flex item-center justify-center">
+              <Button
+                className="w-30"
+                type="submit"
+                aria-label="Entrar"
+                onClick={() => handleSubmit}
+                loading
+              >
+                Entrar
+              </Button>
+            </div>
+            {status && (
+              <p
+                role="alert"
+                style={
+                  status !== 'Login realizado com sucesso!'
+                    ? {
+                        color: 'white',
+                        backgroundColor: '#25bee473',
+                      }
+                    : {}
+                }
+                aria-live="polite"
+              >
+                {status}
+              </p>
+            )}
+          </form>
         </div>
       </div>
-      <div className=" flex items-center justify-center pt-8 w-90 h-70">
-        <form
-          className="flex flex-col gap-4"
-          onSubmit={handleSubmit}
-          aria-label="Formulário de login"
-        >
-          <div className="input-group">
-            <TextInput
-              value={username}
-              onChange={(element) => setUsername(element.target.value)}
-              label="Email"
-            />
-          </div>
-          <div>
-            <TextInput
-              label="Senha"
-              isPassword
-              value={password}
-              onChange={(element) => setPassword(element.target.value)}
-            />
-          </div>
-          <div className="w-full flex item-center justify-center">
-            <Button className="w-30" type="submit" aria-label="Entrar" onClick={() => handleSubmit}>
-              Entrar
-            </Button>
-          </div>
-          {status && (
-            <p
-              role="alert"
-              style={
-                status !== 'Login realizado com sucesso!'
-                  ? {
-                      color: 'white',
-                      backgroundColor: '#25bee473',
-                    }
-                  : {}
-              }
-              aria-live="polite"
-            >
-              {status}
-            </p>
-          )}
-        </form>
+      <div className="w-82 ">
+        <img src={sereiaMirror} alt="Imagem espelho Sereia Tattoo" />
       </div>
     </div>
   )
