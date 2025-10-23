@@ -10,7 +10,7 @@ export const PublicRoutes = (
     <Route path="/" element={<Home />} />
     <Route path="/photos" element={<Photos />} />
 
-    <Route element={<RedirectIfAuthenticated to="/admins" />}>
+    <Route element={<RedirectIfAuthenticated to="/admin" />}>
       <Route path="/login" element={<LoginPage />} />
     </Route>
   </>
