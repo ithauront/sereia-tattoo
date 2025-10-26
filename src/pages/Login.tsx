@@ -2,6 +2,7 @@ import { useState } from 'react'
 
 import { X } from 'phosphor-react'
 import { useLocation, useNavigate } from 'react-router-dom'
+import { z } from 'zod'
 
 import { Button } from '../components/Button/Button'
 import TextInput from '../components/TextInput/TextInput'
@@ -10,25 +11,48 @@ import logo from '/Logo_Sereia.png'
 import sereia from '/Sereia.svg'
 import sereiaMirror from '/SereiaMirror.svg'
 
-type AuthRedirectState = {
-  from?: { pathname: string }
-}
+const minUsernameLength = 3
+const minPasswordLength = 6
+
+const loginSchema = z.object({
+  username: z
+    .string()
+    .trim()
+    .min(minUsernameLength, `Usuário deve ter ao menos ${minUsernameLength} caracteres`)
+    .refine((value) => !/\s/.test(value), 'Usuário não pode conter espaços'),
+  password: z
+    .string()
+    .min(minPasswordLength, `Senha deve ter ao menos ${minPasswordLength} caracteres`)
+    .refine((value) => !/\s/.test(value), 'Senha não pode conter espaços'),
+})
+type FieldErrors = { username?: string; password?: string }
+
+type AuthRedirectState = { from?: { pathname: string } }
 
 export function LoginPage() {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
+  const [fieldErrors, setFieldErrors] = useState<FieldErrors>({})
 
   const navigate = useNavigate()
   const location = useLocation()
 
+  const isFormValid = loginSchema.safeParse({
+    username,
+    password,
+  }).success
+
   async function handleSubmit(submitEvent: React.FormEvent<HTMLFormElement>) {
     submitEvent.preventDefault()
     setErrorMessage(null)
-
+    if (!isFormValid) {
+      return
+    }
     try {
       setIsLoading(true)
+
       await login(username, password)
 
       const state = location.state as AuthRedirectState | null
@@ -66,20 +90,44 @@ export function LoginPage() {
             <div className="input-group">
               <TextInput
                 value={username}
-                onChange={(element) => setUsername(element.target.value)}
+                onChange={(evento) => setUsername(evento.target.value)}
                 label="Nome"
                 required
                 autoFocus
+                onBlur={(evento) => {
+                  const validation = loginSchema.shape.username.safeParse(evento.target.value)
+                  setFieldErrors((parse) => ({
+                    ...parse,
+                    username: validation.success ? undefined : validation.error.issues[0].message,
+                  }))
+                }}
               />
+              {fieldErrors.username && (
+                <p id="username-error" role="alert" className="text-sm text-red-400 w-80">
+                  {fieldErrors.username}
+                </p>
+              )}
             </div>
             <div>
               <TextInput
                 label="Senha"
                 isPassword
                 value={password}
-                onChange={(element) => setPassword(element.target.value)}
+                onChange={(evento) => setPassword(evento.target.value)}
                 required
+                onBlur={(evento) => {
+                  const validation = loginSchema.shape.password.safeParse(evento.target.value)
+                  setFieldErrors((parse) => ({
+                    ...parse,
+                    password: validation.success ? undefined : validation.error.issues[0].message,
+                  }))
+                }}
               />
+              {fieldErrors.password && (
+                <p id="password-error" role="alert" className="text-sm text-red-400 w-80">
+                  {fieldErrors.password}
+                </p>
+              )}
             </div>
             <div className="w-full flex item-center justify-center">
               <Button
@@ -88,6 +136,7 @@ export function LoginPage() {
                 aria-label="Entrar"
                 onClick={() => handleSubmit}
                 loading={isLoading}
+                disabled={!isFormValid}
               >
                 Entrar
               </Button>
