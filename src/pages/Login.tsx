@@ -1,5 +1,6 @@
 import { useState } from 'react'
 
+import { X } from 'phosphor-react'
 import { useLocation, useNavigate } from 'react-router-dom'
 
 import { Button } from '../components/Button/Button'
@@ -16,7 +17,7 @@ type AuthRedirectState = {
 export function LoginPage() {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-  const [status, setStatus] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
 
   const navigate = useNavigate()
@@ -27,6 +28,7 @@ export function LoginPage() {
     setErrorMessage(null)
 
     try {
+      setIsLoading(true)
       await login(username, password)
 
       const state = location.state as AuthRedirectState | null
@@ -34,18 +36,20 @@ export function LoginPage() {
       navigate(redirectPath, {
         replace: true,
       })
+      setIsLoading(false)
     } catch (caughtError: unknown) {
-      let message = 'Login failed'
-      if (caughtError instanceof Error) message = caughtError.message
-      else if (typeof caughtError === 'string') message = caughtError
+      const message = 'Verifique usuário, senha e conexão'
+      if (caughtError instanceof Error) console.log('ERRO: ', caughtError.message)
+      else if (typeof caughtError === 'string') console.log('ERRO: ', caughtError)
       setErrorMessage(message)
+      setIsLoading(false)
     }
   }
 
   return (
     <div className="flex gap-30 items-center justify-center pt-16 ">
-      <div className="w-82 ">
-        <img src={sereia} alt="Imagem Sereia Tattoo" />
+      <div className="w-82 hidden lg:block w-72" aria-hidden="true">
+        <img src={sereia} alt="Imagem Sereia Tattoo" loading="lazy" decoding="async" />
       </div>
       <div className="flex flex-col">
         <div className=" flex items-center justify-center">
@@ -65,6 +69,7 @@ export function LoginPage() {
                 onChange={(element) => setUsername(element.target.value)}
                 label="Nome"
                 required
+                autoFocus
               />
             </div>
             <div>
@@ -82,32 +87,31 @@ export function LoginPage() {
                 type="submit"
                 aria-label="Entrar"
                 onClick={() => handleSubmit}
-                loading
+                loading={isLoading}
               >
                 Entrar
               </Button>
             </div>
-            {status && (
-              <p
+            {errorMessage && (
+              <div
                 role="alert"
-                style={
-                  status !== 'Login realizado com sucesso!'
-                    ? {
-                        color: 'white',
-                        backgroundColor: '#25bee473',
-                      }
-                    : {}
-                }
-                aria-live="polite"
+                aria-live="assertive"
+                className="flex items-center gap-3 rounded-md border border-red-500/30 bg-red-600/15 px-4 py-3 backdrop-blur-sm"
               >
-                {status}
-              </p>
+                <X color="red" />
+                <p className="text-sm leading-5 text-slate-800">{errorMessage}</p>
+              </div>
             )}
           </form>
         </div>
       </div>
-      <div className="w-82 ">
-        <img src={sereiaMirror} alt="Imagem espelho Sereia Tattoo" />
+      <div className="w-82 w-82 hidden lg:block w-72" aria-hidden="true">
+        <img
+          src={sereiaMirror}
+          alt="Imagem espelho Sereia Tattoo"
+          loading="lazy"
+          decoding="async"
+        />
       </div>
     </div>
   )
