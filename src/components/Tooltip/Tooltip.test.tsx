@@ -1,7 +1,16 @@
+/* eslint-disable import/order */
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { Tooltip } from './Tooltip'
+
+import {
+  makeRectangleHeight,
+  makeRectangleLeft,
+  makeRectangleTop,
+  makeRectangleWidth,
+  twoHundredMilisecs,
+} from '../../utils/magicNumbers'
 
 const advance = async (milliseconds: number) =>
   await new Promise((resolve) => setTimeout(resolve, milliseconds))
@@ -82,14 +91,17 @@ describe('Tooltip', () => {
     )
     const btn = screen.getByText('Trigger')
     fireEvent.mouseEnter(btn)
-    // eslint-disable-next-line no-magic-numbers
-    await advance(200)
+    await advance(twoHundredMilisecs)
     expect(screen.queryByRole('tooltip')).not.toBeInTheDocument()
   })
 
   it('supports all placements (data attribute)', async () => {
-    // eslint-disable-next-line no-magic-numbers
-    const makeRect = (left = 200, top = 200, width = 80, height = 32) => ({
+    const makeRectangle = (
+      left = makeRectangleLeft,
+      top = makeRectangleTop,
+      width = makeRectangleWidth,
+      height = makeRectangleHeight,
+    ) => ({
       x: left,
       y: top,
       left,
@@ -105,7 +117,7 @@ describe('Tooltip', () => {
       const triggerButton = screen.getByText('Pl')
       Object.defineProperty(triggerButton, 'getBoundingClientRect', {
         configurable: true,
-        value: () => makeRect(),
+        value: () => makeRectangle(),
       })
       return triggerButton
     }

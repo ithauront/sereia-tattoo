@@ -1,3 +1,5 @@
+import { oneSec } from '../utils/magicNumbers'
+
 export type TokenPair = { access_token: string; refresh_token: string }
 
 const ACCESS_TOKEN_KEY = 'access_token'
@@ -5,8 +7,6 @@ const REFRESH_TOKEN_KEY = 'refresh_token'
 
 const hasWindow = typeof window !== 'undefined'
 const storage = hasWindow ? window.localStorage : null
-
-const oneSec = 1000
 
 export function getAccessToken(): string | null {
   try {

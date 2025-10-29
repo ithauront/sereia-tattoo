@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
 
 import { Tooltip, type TooltipProps } from '../components/Tooltip/Tooltip'
+import { oneSec, twoHundredMilisecs } from '../utils/magicNumbers'
 
 const meta: Meta<TooltipProps> = {
   title: 'Components/Tooltip',
@@ -56,7 +57,7 @@ const meta: Meta<TooltipProps> = {
     content: 'Hello from Tooltip',
     placement: 'top',
     trigger: 'hover',
-    delay: 150,
+    delay: twoHundredMilisecs,
   },
 }
 export default meta
@@ -76,7 +77,7 @@ export const Default: Story = {
 export const CustomDelay: Story = {
   args: {
     content: 'You waited one second',
-    delay: 1000,
+    delay: oneSec,
   },
   render: (args) => (
     <div className="flex h-64 items-center justify-center">

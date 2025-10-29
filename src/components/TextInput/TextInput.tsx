@@ -12,33 +12,19 @@ export type TextInputSize = 'sm' | 'md' | 'lg'
 
 export type TextInputProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size' | 'id'> & {
   id?: string
-
   label?: string
-
   placeholder?: string
-
   isPassword?: boolean
-
   isRequired?: boolean
-
   isDisabled?: boolean
-
   isReadOnly?: boolean
-
   error?: string
-
   maxLength?: number
-
   minLength?: number
-
   className?: string
-
   fullWidth?: boolean
-
   ariaLabel?: string
-
   size?: TextInputSize
-
   helpText?: ReactNode
 }
 
