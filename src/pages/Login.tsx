@@ -7,12 +7,10 @@ import { z } from 'zod'
 import { Button } from '../components/Button/Button'
 import TextInput from '../components/TextInput/TextInput'
 import { login } from '../lib/api'
+import { minPasswordLength, minUsernameLength } from '../utils/magicNumbers'
 import logo from '/Logo_Sereia.png'
 import sereia from '/Sereia.svg'
 import sereiaMirror from '/SereiaMirror.svg'
-
-const minUsernameLength = 3
-const minPasswordLength = 6
 
 const loginSchema = z.object({
   username: z

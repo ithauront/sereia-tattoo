@@ -1,8 +1,9 @@
+// eslint-disable-next-line import/order
 import { clearTokens, getAuthHeader, getRefreshToken, setTokens, type TokenPair } from './auth'
 
-const API_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:8000/api'
+import { unauthorized } from '../utils/magicNumbers'
 
-const unauthorized = 401
+const API_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:8000/api'
 
 async function refreshTokens(): Promise<void> {
   const refresh = getRefreshToken()

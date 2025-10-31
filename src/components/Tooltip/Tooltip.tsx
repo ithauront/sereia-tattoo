@@ -15,6 +15,13 @@ import {
 
 import { createPortal } from 'react-dom'
 
+import {
+  fiveHundredMilisecs,
+  margin,
+  OFFSCREEN_COORD,
+  VIEWPORT_PADDING_PX,
+} from '../../utils/magicNumbers'
+
 function cn(...classes: Array<string | undefined | false | null>) {
   return classes.filter(Boolean).join(' ')
 }
@@ -32,10 +39,7 @@ export type TooltipProps = {
   className?: string
   id?: string
 }
-const DEFAULT_DELAY_MS = 500
-const OFFSCREEN_COORD = -9999
-const VIEWPORT_PADDING_PX = 8
-const margin = 8
+
 function computePosition(
   triggerEl: HTMLElement,
   tooltipEl: HTMLElement,
@@ -100,7 +104,7 @@ export const Tooltip = forwardRef<HTMLSpanElement, TooltipProps>(
       content,
       placement = 'top',
       trigger = 'hover',
-      delay = DEFAULT_DELAY_MS,
+      delay = fiveHundredMilisecs,
       isDisabled = false,
       className,
       id,
@@ -271,7 +275,6 @@ export const Tooltip = forwardRef<HTMLSpanElement, TooltipProps>(
             >
               <div className="relative">
                 {content}
-                {/* Arrow */}
                 <span
                   aria-hidden
                   className={cn(
