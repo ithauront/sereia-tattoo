@@ -70,7 +70,7 @@ export function LoginPage() {
 
   return (
     <div className="flex gap-30 items-center justify-center pt-16 ">
-      <div className="w-82 hidden lg:block w-72" aria-hidden="true">
+      <div className="w-82 hidden lg:block" aria-hidden="true">
         <img src={sereia} alt="Imagem Sereia Tattoo" loading="lazy" decoding="async" />
       </div>
       <div className="flex flex-col">
@@ -152,7 +152,7 @@ export function LoginPage() {
           </form>
         </div>
       </div>
-      <div className="w-82 w-82 hidden lg:block w-72" aria-hidden="true">
+      <div className="w-82 hidden lg:block" aria-hidden="true">
         <img
           src={sereiaMirror}
           alt="Imagem espelho Sereia Tattoo"
