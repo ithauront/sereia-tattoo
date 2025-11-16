@@ -32,8 +32,8 @@ export function Navbar({ navItems, activeLabel }: NavbarProps) {
   }
 
   return (
-    <nav aria-label="Main" className="bg-transparent sticky top-0 start-0 z-20 w-full">
-      <div className="mx-auto flex max-w-screen-xl flex-wrap items-center justify-between p-4">
+    <nav aria-label="Main" className="bg-transparent top-0 start-0 z-20 w-full">
+      <div className="relative mx-auto flex max-w-screen-xl flex-wrap items-center justify-between p-4">
         <div className="flex items-center md:order-2">
           <button
             type="button"
@@ -77,7 +77,11 @@ export function Navbar({ navItems, activeLabel }: NavbarProps) {
         <div
           data-testid="mobile-menu"
           id={menuId}
-          className={clsx('w-full md:hidden', isOpen ? 'block' : 'hidden')}
+          className={clsx(
+            'absolute right-0 top-full mt-2 w-56 md:hidden',
+            'rounded-lg border border-gray-100 bg-white shadow-lg',
+            isOpen ? 'block' : 'hidden',
+          )}
         >
           <ul className="mt-4 flex flex-col rounded-lg border border-gray-100 bg-gray-50 p-2">
             {navItems.map((item) => {
