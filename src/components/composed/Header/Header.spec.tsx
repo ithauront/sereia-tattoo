@@ -67,7 +67,7 @@ describe('Header', () => {
     render(<Header />)
 
     await user.click(screen.getByTestId('header-logo'))
-    expect(navigateMock).toHaveBeenCalledWith('/home')
+    expect(navigateMock).toHaveBeenCalledWith('/')
   })
 
   it('opens the mobile menu and displays the items', async () => {
