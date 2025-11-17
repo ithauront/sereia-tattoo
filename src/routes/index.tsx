@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router-dom'
 
 // eslint-disable-next-line import/order
-import { NotFound } from '../pages/NotFound'
+import { NotFound } from '../pages/publicPages/NotFound'
 import { AuthRoutes } from './auth.routes'
 import { PublicRoutes } from './public.routes'
 export function AppRoutes() {
