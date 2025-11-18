@@ -94,7 +94,7 @@ export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(function T
   const handlePasswordToggle = () => setShowPassword((previous) => !previous)
 
   const labelMarkup = label ? (
-    <label htmlFor={inputId} className={cn('mb-1 block text-sm font-medium text-gray-700')}>
+    <label htmlFor={inputId} className={cn('mb-1 block text-sm text-gray-700')}>
       <span className="inline-flex items-center gap-1.5">
         {label}
         {isRequired && (

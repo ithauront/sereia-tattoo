@@ -57,7 +57,7 @@ export function Navbar({ navItems, activeLabel }: NavbarProps) {
                     type="button"
                     onClick={() => handleItemClick(item)}
                     className={clsx(
-                      'text-sm font-medium transition-colors  duration-300 ease-in-out',
+                      'text-sm transition-colors  duration-300 ease-in-out',
                       'hover:text-blue-700',
                       'focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400',
                       'rounded-md p-1',
@@ -92,12 +92,10 @@ export function Navbar({ navItems, activeLabel }: NavbarProps) {
                     type="button"
                     onClick={() => handleItemClick(item)}
                     className={clsx(
-                      'block w-full rounded-sm px-3 py-2 text-left text-sm font-medium outline-none transition-colors',
+                      'block w-full rounded-sm px-3 py-2 text-left text-sm outline-none transition-colors',
                       'hover:text-blue-700 dark:hover:text-blue-400',
                       'focus-visible:ring-2 focus-visible:ring-blue-400',
-                      active
-                        ? 'text-blue-700 dark:text-blue-700'
-                        : 'text-gray-900 dark:text-gray-100',
+                      active ? 'text-blue-700 font-bold' : 'text-gray-900 font-normal',
                       'cursor-pointer',
                     )}
                     aria-current={active ? 'page' : undefined}

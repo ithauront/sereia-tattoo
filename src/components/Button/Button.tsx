@@ -37,7 +37,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     ref,
   ) => {
     const base =
-      'inline-flex items-center justify-center font-medium transition-colors select-none focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer'
+      'inline-flex items-center justify-center transition-colors select-none focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer'
     const width = fullWidth ? 'w-full' : ''
     const classes = [base, sizeCls[size], variantCls[variant], width, className]
       .filter(Boolean)
