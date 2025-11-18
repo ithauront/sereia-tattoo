@@ -65,10 +65,13 @@ describe('Navbar', () => {
     const aboutButton = within(desktop).getByRole('button', {
       name: 'About',
     })
-    await user.hover(aboutButton)
-    expect(aboutButton).toHaveClass('font-medium')
-    expect(aboutButton).toHaveClass('hover:text-blue-700')
+
     expect(aboutButton).not.toHaveClass('font-bold')
+    expect(aboutButton).toHaveClass('text-gray-900')
+
+    await user.hover(aboutButton)
+
+    expect(aboutButton).toHaveClass('hover:text-blue-700')
   })
 
   it('should only active label be bold and blue', async () => {
@@ -83,7 +86,6 @@ describe('Navbar', () => {
     expect(homeButton).toHaveClass('text-blue-700')
     expect(homeButton).toHaveClass('font-bold')
 
-    expect(aboutButton).toHaveClass('font-medium')
     expect(aboutButton).toHaveClass('text-gray-900')
     expect(aboutButton).not.toHaveClass('font-bold')
   })
