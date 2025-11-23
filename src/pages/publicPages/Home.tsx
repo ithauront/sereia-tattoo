@@ -1,3 +1,4 @@
+import { Footer } from '../../components/composed/Footer/Footer'
 import { Header } from '../../components/composed/Header/Header'
 import { Loading } from '../../components/Loading/Loading'
 
@@ -7,6 +8,41 @@ export function Home() {
       <Header />
       <h1 className="text-2xl font-bold">HOME</h1>
       <Loading size="md" />
+      <h1 className="text-2xl font-bold">HOME</h1>
+      <Loading size="md" />
+      <h1 className="text-2xl font-bold">HOME</h1>
+      <Loading size="md" />
+      <h1 className="text-2xl font-bold">HOME</h1>
+      <Loading size="md" />
+      <h1 className="text-2xl font-bold">HOME</h1>
+      <Loading size="md" />
+      <h1 className="text-2xl font-bold">HOME</h1>
+      <Loading size="md" />
+      <h1 className="text-2xl font-bold">HOME</h1>
+      <Loading size="md" />
+      <h1 className="text-2xl font-bold">HOME</h1>
+      <Loading size="md" />
+      <h1 className="text-2xl font-bold">HOME</h1>
+      <Loading size="md" />
+      <h1 className="text-2xl font-bold">HOME</h1>
+      <Loading size="md" />
+      <h1 className="text-2xl font-bold">HOME</h1>
+      <Loading size="md" />
+      <h1 className="text-2xl font-bold">HOME</h1>
+      <Loading size="md" />
+      <h1 className="text-2xl font-bold">HOME</h1>
+      <Loading size="md" />
+      <h1 className="text-2xl font-bold">HOME</h1>
+      <Loading size="md" />
+      <h1 className="text-2xl font-bold">HOME</h1>
+      <Loading size="md" />
+      <h1 className="text-2xl font-bold">HOME</h1>
+      <Loading size="md" />
+      <h1 className="text-2xl font-bold">HOME</h1>
+      <Loading size="md" />
+      <h1 className="text-2xl font-bold">HOME</h1>
+      <Loading size="md" />
+      <Footer />
     </div>
   )
 }
