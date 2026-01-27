@@ -45,7 +45,7 @@ export function Footer() {
         >
           <span className="text-sm font-bold md:text-base">{brandName}</span>
           <a
-            className="md:text-xs hover:text-sky-400"
+            className="md:text-xs hover:text-blue-700"
             href="https://www.google.com/maps?q=Sereia+Tattoo+Studio+Ondina+Salvador"
             target="_blank"
             rel="noopener noreferrer"
@@ -65,7 +65,7 @@ export function Footer() {
               rel="noreferrer"
               className={clsx(
                 'inline-flex items-center justify-center rounded-full',
-                'text-slate-200 hover:text-sky-400',
+                'text-slate-200 hover:text-blue-700',
                 'transition-colors duration-200',
                 'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900',
               )}
@@ -80,7 +80,7 @@ export function Footer() {
               rel="noreferrer"
               className={clsx(
                 'inline-flex items-center justify-center rounded-full',
-                'text-slate-200 hover:text-sky-400',
+                'text-slate-200 hover:text-blue-700',
                 'transition-colors duration-200',
                 'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900',
               )}
@@ -95,7 +95,7 @@ export function Footer() {
               rel="noreferrer"
               className={clsx(
                 'inline-flex items-center justify-center rounded-full',
-                'text-slate-200 hover:text-sky-400',
+                'text-slate-200 hover:text-blue-700',
                 'transition-colors duration-200',
                 'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900',
               )}
