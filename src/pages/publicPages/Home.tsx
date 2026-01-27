@@ -1,15 +1,16 @@
 import { useEffect, useState } from 'react'
 
-import { motion } from 'framer-motion'
 import { useNavigate } from 'react-router-dom'
 
 import { Button } from '../../components/Button/Button'
+import { AnimatedSection } from '../../components/composed/AnimatedSection/AnimatedSection'
 import { Footer } from '../../components/composed/Footer/Footer'
 import { Header } from '../../components/composed/Header/Header'
 import {
   SlidingBanner,
   type ActionButtonProp,
 } from '../../components/composed/SlidingBanner/SlidingBanner'
+import { HEADER_SCROLL_THRESHOLD_PX } from '../../utils/magicNumbers'
 
 export function Home() {
   const navigate = useNavigate()
@@ -22,7 +23,7 @@ export function Home() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50)
+      setScrolled(window.scrollY > HEADER_SCROLL_THRESHOLD_PX)
     }
 
     window.addEventListener('scroll', handleScroll)
@@ -70,100 +71,32 @@ export function Home() {
           "
         />
         <div className="flex flex-col gap-10">
-          <motion.div
-            initial={{
-              x: -80,
-              opacity: 0,
-            }}
-            whileInView={{
-              x: 0,
-              opacity: 1,
-            }}
-            transition={{
-              duration: 1,
-              ease: 'easeOut',
-            }}
-            viewport={{
-              once: false,
-              amount: 0.3,
-            }}
-            className="
-            flex flex-col lg:flex-row
-            gap-6
-            px-4 sm:px-6 lg:px-8 py-8
-            mx-auto my-6
-            w-full max-w-5xl
-            bg-white/10 backdrop-blur-md
-            rounded-2xl shadow-xl border border-white/20
-            "
-          >
-            <img
-              src="/foto_1.jpg"
-              alt="foto_tattoo"
-              className="w-full sm:w-80 lg:w-96
-                         h-60           
-                         rounded-xl
-                         object-cover
-                         shrink-0
-                         sm:mx-auto lg:mx-0"
-            />
-            <p className="text-sm leading-relaxed text-slate-900 text-justify">
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Commodi, eum sapiente.
+          <AnimatedSection
+            slideFrom="left"
+            image="/foto_1.jpg"
+            imageAlt="foto_tattoo"
+            text="Lorem ipsum dolor sit, amet consectetur adipisicing elit. Commodi, eum sapiente.
               Quibusdam, nihil quam provident cum sint accusamus labore dolor qui reiciendis numquam
               vitae alias, eum praesentium odit dolores nemo? Lorem ipsum dolor sit, amet
               consectetur adipisicing elit. Commodi, eum sapiente. Quibusdam, nihil quam provident
               cum sint accusamus labore dolor qui reiciendis numquam vitae alias, eum praesentium
               odit dolores nemo? Lorem ipsum dolor sit, amet consectetur adipisicing elit. Commodi,
               eum sapiente. Quibusdam, nihil quam provident cum sint accusamus labore dolor qui
-              reiciendis numquam vitae alias, eum praesentium odit dolores nemo?
-            </p>
-          </motion.div>
-          <motion.div
-            initial={{
-              x: 80,
-              opacity: 0,
-            }}
-            whileInView={{
-              x: 0,
-              opacity: 1,
-            }}
-            transition={{
-              duration: 1,
-              ease: 'easeOut',
-            }}
-            viewport={{
-              once: false,
-              amount: 0.3,
-            }}
-            className="flex flex-col lg:flex-row
-                       gap-6
-                       px-4 sm:px-6 lg:px-8 py-8
-                       mx-auto my-6
-                       w-full max-w-5xl
-                       bg-white/10 backdrop-blur-md
-                       rounded-2xl shadow-xl border border-white/20"
-          >
-            <p className="text-sm leading-relaxed text-slate-900 text-justify">
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Commodi, eum sapiente.
+              reiciendis numquam vitae alias, eum praesentium odit dolores nemo?"
+          />
+          <AnimatedSection
+            slideFrom="right"
+            image="/foto_2.png"
+            imageAlt="foto_homem"
+            text="Lorem ipsum dolor sit, amet consectetur adipisicing elit. Commodi, eum sapiente.
               Quibusdam, nihil quam provident cum sint accusamus labore dolor qui reiciendis numquam
               vitae alias, eum praesentium odit dolores nemo? Lorem ipsum dolor sit, amet
               consectetur adipisicing elit. Commodi, eum sapiente. Quibusdam, nihil quam provident
               cum sint accusamus labore dolor qui reiciendis numquam vitae alias, eum praesentium
               odit dolores nemo? Lorem ipsum dolor sit, amet consectetur adipisicing elit. Commodi,
               eum sapiente. Quibusdam, nihil quam provident cum sint accusamus labore dolor qui
-              reiciendis numquam vitae alias, eum praesentium odit dolores nemo?
-            </p>
-            <img
-              src="/foto_2.png"
-              alt="foto_homem"
-              className="w-full sm:w-80 lg:w-96
-                         h-60           
-                         rounded-xl
-                         object-cover
-                         shrink-0
-                         sm:mx-auto lg:mx-0"
-            />
-          </motion.div>
+              reiciendis numquam vitae alias, eum praesentium odit dolores nemo?"
+          />
         </div>
         <div className="flex flex-col items-center px-4 py-10">
           <div
