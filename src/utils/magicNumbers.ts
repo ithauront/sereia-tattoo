@@ -1,5 +1,8 @@
 //positions
 export const OFFSCREEN_COORD = -9999
+export const ANIMATED_SECTION_POSITION_SLIDE = 80
+export const HEADER_SCROLL_THRESHOLD_PX = 50
+
 
 //http codes
 export const unauthorized = 401
