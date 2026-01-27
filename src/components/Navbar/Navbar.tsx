@@ -37,7 +37,7 @@ export function Navbar({ navItems, activeLabel }: NavbarProps) {
         <div className="flex items-center md:order-2">
           <button
             type="button"
-            className="inline-flex h-10 w-10 items-center justify-center rounded-lg p-2 text-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-400 md:hidden"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-lg p-2 text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-400 md:hidden"
             aria-controls={menuId}
             aria-expanded={isOpen}
             aria-label="Abrir menu principal"

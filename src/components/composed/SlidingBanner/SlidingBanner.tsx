@@ -135,7 +135,7 @@ export function SlidingBanner({
           data-testid="action-button"
           ref={actionButtonRef}
           type="button"
-          className="shrink-0 rounded-md bg-sky-500 px-3 py-1 text-xs sm:text-sm font-semibold text-slate-900 hover:bg-sky-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-300 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900"
+          className="shrink-0 rounded-md bg-slate-900 px-3 py-1 text-xs sm:text-sm font-semibold text-white hover:bg-blue-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-300 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 cursor-pointer"
           onClick={actionButton.onClick}
         >
           {actionButton.title}

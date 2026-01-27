@@ -12,3 +12,11 @@
 html {
   font-family: var(--font-sans);
 }
+
+.header-image {
+  transition: filter 0.8s ease;
+}
+
+.header-image.scrolled {
+  filter: grayscale(100%);
+}
