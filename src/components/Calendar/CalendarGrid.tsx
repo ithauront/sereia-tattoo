@@ -8,7 +8,7 @@ type Props = {
   onChangeMonth: (next: Dayjs) => void
 
   selectedDate: Dayjs | null
-  oneSelectDate: (date: Dayjs) => void
+  onSelectDate: (date: Dayjs) => void
 }
 
 export function CalendarGrid({ currentMonth, onChangeMonth, selectedDate, onSelectDate }: Props) {
@@ -47,7 +47,7 @@ export function CalendarGrid({ currentMonth, onChangeMonth, selectedDate, onSele
             type="button"
             onClick={handleNext}
             title="Proximo mês"
-            className="inline-flex h-10 w-10 items-center justify-center rounded-lx border border-white/10 bg-white/5 text-slate-900 hover:bg-blue-700"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-slate-900 hover:bg-blue-700"
           >
             <CaretRight size={18} />
           </button>
